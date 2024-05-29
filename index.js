@@ -13,37 +13,32 @@ client.commands = new Collection();
 const foldersPath = path.join(__dirname, 'commands');
 const commandFolders = filesystem.readdirSync(foldersPath);
 
-for (const folder of commandFolders)
-{
+for (const folder of commandFolders) {
 	const commandsPath = path.join(foldersPath, folder);
 	const commandFiles = filesystem.readdirSync(commandsPath).filter(file => file.endsWith('.js'));
 
-	for(const file of commandFiles)
-		{
-			const filePath = path.join(commandsPath, file);
-			const command = require(filePath);
+	for (const file of commandFiles) {
+		const filePath = path.join(commandsPath, file);
+		const command = require(filePath);
 
-			if ('data' in command && 'execute' in command)
-			{
-				client.commands.set(command.data.name, command);
-			}
-			else
-			{
-				console.log(`[WARNING] command at ${filePath} is missing the data or execute property.`);
-			}
+		if ('data' in command && 'execute' in command) {
+			client.commands.set(command.data.name, command);
 		}
+		else {
+			console.log(`[WARNING] command at ${filePath} is missing the data or execute property.`);
+		}
+	}
 }
 
 client.on(Events.InteractionCreate, async interaction => {
-	if (!interaction.isChatInputCommand())
-		{
-			console.log(`NOT COMMAND: ${interaction}`)
-			return;
-		}
-		
-	
+	if (!interaction.isChatInputCommand()) {
+		console.log(`NOT COMMAND: ${interaction}`)
+		return;
+	}
+
+
 	const command = interaction.client.commands.get(interaction.commandName);
-	if (!command){
+	if (!command) {
 		console.error(`Failed to find ${interaction.commandName}.`);
 		return;
 	}
@@ -53,13 +48,11 @@ client.on(Events.InteractionCreate, async interaction => {
 	}
 	catch (e) {
 		console.error(e);
-		if (interaction.replied || interaction.deferred)
-		{
-			await interaction.followUp({content: 'Somthing went wrong while executing this command.', ephemeral: true});
+		if (interaction.replied || interaction.deferred) {
+			await interaction.followUp({ content: 'Something went wrong while executing this command.', ephemeral: true });
 		}
-		else
-		{
-			await interaction.reply({content: 'Somthing went wrong while executing this command.', ephemeral: true});
+		else {
+			await interaction.reply({ content: 'Something went wrong while executing this command.', ephemeral: true });
 		}
 
 	}

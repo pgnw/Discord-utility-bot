@@ -3,7 +3,7 @@ const { execute } = require('./Hello');
 
 module.exports = {
     data: new SlashCommandBuilder()
-        .setName("serverInfo")
+        .setName("server_info")
         .setDescription("Provides information about the server."),
     async execute(interaction)
     {

@@ -3,7 +3,7 @@ const { execute } = require("./Hello")
 
 module.exports = {
     data: new SlashCommandBuilder()
-    .setName('userInfo')
+    .setName('user_info')
     .setDescription("Displays information about the user."),
 
     async execute(interaction)

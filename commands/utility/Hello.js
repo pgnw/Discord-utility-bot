@@ -3,8 +3,8 @@ const { SlashCommandBuilder } = require("discord.js");
 
 
 module.exports = {
-    date: new SlashCommandBuilder()
-	.setName('Hello')
+    data: new SlashCommandBuilder()
+	.setName('hello')
 	.setDescription('Replies with HELLO'),
     async execute(interaction)
     {

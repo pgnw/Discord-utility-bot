@@ -30,42 +30,8 @@ for (const folder of commandFolders) {
 	}
 }
 
-client.on(Events.InteractionCreate, async interaction => {
-	if (!interaction.isChatInputCommand()) {
-		console.log(`NOT COMMAND: ${interaction}`)
-		return;
-	}
 
 
-	const command = interaction.client.commands.get(interaction.commandName);
-	if (!command) {
-		console.error(`Failed to find ${interaction.commandName}.`);
-		return;
-	}
-
-	try {
-		await command.execute(interaction);
-	}
-	catch (e) {
-		console.error(e);
-		if (interaction.replied || interaction.deferred) {
-			await interaction.followUp({ content: 'Something went wrong while executing this command.', ephemeral: true });
-		}
-		else {
-			await interaction.reply({ content: 'Something went wrong while executing this command.', ephemeral: true });
-		}
-
-	}
-
-	console.log(interaction);
-})
-
-// When the client is ready, run this code (only once).
-// The distinction between `client: Client<boolean>` and `readyClient: Client<true>` is important for TypeScript developers.
-// It makes some properties non-nullable.
-client.once(Events.ClientReady, readyClient => {
-	console.log(`Ready! Logged in as ${readyClient.user.tag}`);
-});
 
 // Log in to Discord with your client's token
 client.login(token);

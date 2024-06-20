@@ -13,7 +13,7 @@ module.exports = {
                 .setMaxValue(50)
         ),
     async execute(interaction) {
-        await interaction.reply(interaction.client.User);
+        await interaction.reply('This command is not yet implemented');
     },
 
 };  

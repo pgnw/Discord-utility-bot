@@ -8,6 +8,9 @@ const commands = [];
 const foldersPath = path.join(__dirname, 'commands');
 const commandFolders = filesystem.readdirSync(foldersPath);
 
+const rest = new REST().setToken(token);
+
+
 for (const folder of commandFolders) {
     const commandsPath = path.join(foldersPath, folder);
     const commandFiles = filesystem.readdirSync(commandsPath).filter(file => file.endsWith('.js'));
@@ -23,7 +26,7 @@ for (const folder of commandFolders) {
     }
 }
 
-const rest = new REST().setToken(token);
+
 
 (async () => {
     try {
